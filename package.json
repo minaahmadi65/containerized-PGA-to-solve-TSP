@@ -1,0 +1,52 @@
+{
+  "name": "ga-tsp-2024-04-20",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start-master": "node master.js",
+    "start-worker1": "node worker.js --worker-id=1",
+    "start-worker2": "node worker.js --worker-id=2",
+    "start-worker3": "node worker.js --worker-id=3",
+    "start-worker4": "node worker.js --worker-id=4",
+    "start-worker5": "node worker.js --worker-id=5",
+    "start-worker6": "node worker.js --worker-id=6",
+    "start-worker7": "node worker.js --worker-id=7",
+    "start-worker8": "node worker.js --worker-id=8",
+    "start-worker9": "node worker.js --worker-id=9",
+    "start-worker10": "node worker.js --worker-id=10",
+    "start-worker11": "node worker.js --worker-id=11",
+    "start-worker12": "node worker.js --worker-id=12",
+    "start-worker13": "node worker.js --worker-id=13",
+    "start-worker14": "node worker.js --worker-id=14",
+    "start-worker15": "node worker.js --worker-id=15",
+    "start-workers": "npm-run-all --parallel start-worker1 start-worker2 start-worker3 start-worker4",
+    "start": "npm-run-all --parallel start-master start-workers",
+    "docker-wi29-worker": "docker build -t minaahmadi/ga-worker:wi29 -f Dockerfile-wi29-worker . && docker push minaahmadi/ga-worker:wi29",
+    "docker-pcb442-worker": "docker build -t minaahmadi/ga-worker:pcb442 -f Dockerfile-pcb442-worker . && docker push minaahmadi/ga-worker:pcb442",
+    "docker-wi29-master": "docker build -t minaahmadi/ga-master:wi29 -f Dockerfile-wi29-master . && docker push minaahmadi/ga-master:wi29",
+    "docker-pcb442-master":"docker build -t minaahmadi/ga-master:pcb442 -f Dockerfile-pcb442-master . && docker push minaahmadi/ga-master:pcb442",
+    "docker-uy734-worker": "docker build -t minaahmadi/ga-worker:uy734 -f Dockerfile-uy734-worker . && docker push minaahmadi/ga-worker:uy734",
+    "docker-uy734-master":"docker build -t minaahmadi/ga-master:uy734 -f Dockerfile-uy734-master . && docker push minaahmadi/ga-master:uy734",
+    "docker-ch150-worker": "docker build -t minaahmadi/ga-worker:ch150 -f Dockerfile-ch150-worker . && docker push minaahmadi/ga-worker:ch150",
+    "docker-ch150-master":"docker build -t minaahmadi/ga-master:ch150 -f Dockerfile-ch150-master . && docker push minaahmadi/ga-master:ch150",
+    "docker":"npm run docker-wi29-worker && npm run docker-ch150-worker && npm run docker-pcb442-worker && npm run docker-uy734-worker && npm run docker-wi29-master && npm run docker-ch150-master && npm run docker-pcb442-master && npm run docker-uy734-master",
+    "kube-wi29": "kubectl apply -f wi29.yml",
+    "kube-uy734": "kubectl apply -f uy734.yml",
+    "kube-ch150": "kubectl apply -f ch150.yml",
+    "kube-pcb442": "kubectl apply -f pcb442.yml"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.8",
+    "canvas": "^2.11.2",
+    "clone": "^2.1.2",
+    "dotenv": "^16.4.7",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}

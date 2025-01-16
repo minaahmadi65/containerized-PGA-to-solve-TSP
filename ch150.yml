@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-ch150-master
+  labels:
+    app: nodejs-ch150-master
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs-ch150-master
+  template:
+    metadata:
+      labels:
+        app: nodejs-ch150-master
+    spec:
+      containers:
+      - name: nodejs-ch150-app
+        image: minaahmadi/ga-master:ch150
+        ports:
+        - containerPort: 3000
+        imagePullPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejs-ch150-master-srv
+spec:
+  selector:
+    app: nodejs-ch150-master
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000
+  type: ClusterIP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-ch150-worker
+  labels:
+    app: nodejs-ch150-worker
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: nodejs-ch150-worker
+  template:
+    metadata:
+      labels:
+        app: nodejs-ch150-worker
+    spec:
+      containers:
+      - name: nodejs-app
+        image: minaahmadi/ga-worker:ch150
+        ports:
+        - containerPort: 3000
+        imagePullPolicy: Always

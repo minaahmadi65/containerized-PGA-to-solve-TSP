@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-wi29-master
+  labels:
+    app: nodejs-wi29-master
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs-wi29-master
+  template:
+    metadata:
+      labels:
+        app: nodejs-wi29-master
+    spec:
+      containers:
+      - name: nodejs-app
+        image: minaahmadi/ga-master:wi29
+        ports:
+        - containerPort: 3000
+        imagePullPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejs-wi29-master-srv
+spec:
+  selector:
+    app: nodejs-wi29-master
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000
+  type: ClusterIP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-wi29-worker
+  labels:
+    app: nodejs-wi29-worker
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: nodejs-wi29-worker
+  template:
+    metadata:
+      labels:
+        app: nodejs-wi29-worker
+    spec:
+      containers:
+      - name: nodejs-app
+        image: minaahmadi/ga-worker:wi29
+        ports:
+        - containerPort: 3000
+        imagePullPolicy: Always
